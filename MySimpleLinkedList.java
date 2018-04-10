@@ -3,6 +3,7 @@ public class MySimpleLinkedList {
 	protected Node first;
 	protected int size;
 	protected Node cursor;
+	protected Node last;
 
 	public MySimpleLinkedList() {
 		first = null;
@@ -15,6 +16,13 @@ public class MySimpleLinkedList {
 		cursor = first;
 		size++;
 	}
+	public void insertAlFinal(Object o) {
+		Node tmp = new Node(o, null);
+		last.setNext(tmp);
+		last=tmp;
+		size++;
+	}
+	
 	public void insertarOrdenado(Object numeroLista2) {
 		boolean exit = false;
 

@@ -61,6 +61,8 @@ public class practico1 {
 				Object aux2=lista2.getNodo();
 					if(aux.equals(aux2)){
 						listaConComunes.insertarOrdenado(aux);/*para el caso b si las dos listas estan ordenadas cambiamos el metodo a un insertar normal o insertar al final */
+//						listaConComunes.insertAlFinal(aux);
+//						listaConComunes.insert(aux);
 						j=lista2.size();
 					}
 					j++;
