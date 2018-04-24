@@ -10,7 +10,7 @@ public class NodeArbol {
 		nodeIzq = null;
 	}
 
-	public NodeArbol(Object o, NodeArbol n , NodeArbol p) {
+	public NodeArbol(int o, NodeArbol n , NodeArbol p) {
 		setInfo(o);
 		setNodeDer(n);
 		setNodeIzq(p);
