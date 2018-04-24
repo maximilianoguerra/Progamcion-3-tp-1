@@ -1,16 +1,16 @@
 
 public class NodeArbol {
-	private int info;
+	private Genero info;
 	private NodeArbol nodeDer;
 	private NodeArbol nodeIzq;
 
-	public NodeArbol(int o) {
+	public NodeArbol(Genero o) {
 		info = o;
 		nodeDer = null;
 		nodeIzq = null;
 	}
 
-	public NodeArbol(int o, NodeArbol n , NodeArbol p) {
+	public NodeArbol(Genero o, NodeArbol n , NodeArbol p) {
 		setInfo(o);
 		setNodeDer(n);
 		setNodeIzq(p);
@@ -21,7 +21,7 @@ public class NodeArbol {
 		nodeIzq = p; 
 	}
 
-	public void setInfo(int o) {
+	public void setInfo(Genero o) {
 		info = o;
 	}
 
@@ -29,7 +29,7 @@ public class NodeArbol {
 		nodeDer = n;
 	}
 
-	public int getInfo() {
+	public Genero getInfo() {
 		return info;
 	}
 

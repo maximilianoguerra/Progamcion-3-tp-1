@@ -10,16 +10,16 @@ public class ArbolBinario {
 		return root.getInfo();
 	}
 	/*corresponde a la entrega*/
-	public boolean hasElem(Object o) {
+	public Genero hasElem(String o) {
 		return hasElem(root, o);
 	}
 	/*corresponde a la entrega*/
-	private boolean hasElem(NodeArbol raiz, Object o) {
-		boolean hasElement = false;
+	private Genero hasElem(NodeArbol raiz, String o) {
+		Genero hasElement = null;
 		if (raiz != null) {
-			if (o.equals(raiz.getInfo())) {
-				return true;
-			} else if ((int) raiz.getInfo() > (int) o) {
+			if (o.equals(raiz.getInfo().getGenero())) {
+				return raiz.getInfo();
+			} else if (raiz.getInfo().getGenero().compareTo(o) == -1) {
 				hasElement = hasElem(raiz.getNodeIzq(), o);
 			} else {
 				hasElement = hasElem(raiz.getNodeDer(), o);
@@ -32,7 +32,7 @@ public class ArbolBinario {
 		return root == null;
 	}
 	/*corresponde a la entrega*/
-	public void insert(int o) {
+	public void insert(Genero o) {
 		NodeArbol tmp = new NodeArbol(o);
 		if (isEmpty()) {
 			root = tmp;
@@ -42,7 +42,7 @@ public class ArbolBinario {
 	}
 	/*corresponde a la entrega*/
 	private void insert(NodeArbol raiz, NodeArbol tmp) {
-		if (raiz.getInfo() >  tmp.getInfo()) {
+		if (raiz.getInfo().getGenero().compareTo(tmp.getInfo().getGenero()) == -1  ) {
 			if (raiz.getNodeIzq() != null) {
 				insert(raiz.getNodeIzq(), tmp);
 			} else {
@@ -58,92 +58,92 @@ public class ArbolBinario {
 
 	}
 
-	public boolean delete(int o) {
-		boolean delete = false;
-		NodeArbol aux = root;
-		if (root.getInfo() == o) {
-			if ((root.getNodeDer() != null)
-					&& ((root.getNodeDer().getNodeIzq() != null) || (root.getNodeDer().getNodeDer() != null))) {
-				root = realizarCorrimientos(root, o);
-				delete = true;
-			} else if ((root.getNodeDer() != null)
-					&& ((root.getNodeDer().getNodeIzq() == null) && (root.getNodeDer().getNodeDer() == null))) {
-				root = aux.getNodeDer();
-				root.setNodeIzq(aux.getNodeIzq());
-			} else {
-				root = root.getNodeIzq();
-			}
-
-		} else {
-			delete = delete(root, o);
-		}
-		return delete;
-	}
-
-	public boolean delete(NodeArbol raiz, int o) {
-		boolean delete = false;
-		if (raiz != null) {
-			if ((raiz.getInfo() > (int) o) && (raiz.getNodeIzq() != null)) {
-				if (raiz.getNodeIzq().getInfo()==o) {
-					raiz.setNodeIzq(realizarCorrimientos(raiz.getNodeIzq(), o));
-					delete = true;
-				} else {
-					delete = delete(raiz.getNodeIzq(), o);
-				}
-			} else if (( raiz.getInfo() <  o) && (raiz.getNodeDer() != null)) {
-				if (raiz.getNodeDer().getInfo()==o) {
-					raiz.setNodeDer(realizarCorrimientos(raiz.getNodeDer(), o));
-					delete = true;
-				} else {
-					delete = delete(raiz.getNodeDer(), o);
-				}
-			}
-		}
-		return delete;
-	}
-
-	private NodeArbol realizarCorrimientos(NodeArbol raiz, Object o) {
-		// TODO Auto-generated method stub
-		NodeArbol auxRaiz = raiz;
-		if ((raiz.getNodeDer() == null) && (raiz.getNodeIzq() == null)) {
-			raiz = null; // tengo que borrarme de mi padre (ojo si soy la raiz)
-		} else if ((raiz.getNodeDer() != null) && (raiz.getNodeIzq() == null)) {
-			raiz = raiz.getNodeDer(); // padre.sethijo(raiz.getNodoDer)
-		} else if ((raiz.getNodeDer() == null) && (raiz.getNodeIzq() != null)) {
-			raiz = raiz.getNodeIzq(); // padre.sethijo(raiz.getNodoDer)
-		} else {
-			if (raiz.getNodeDer().getNodeIzq() == null) {
-				raiz = raiz.getNodeDer();
-				raiz.setNodeIzq(auxRaiz.getNodeIzq());
-			} else {
-				NodeArbol auxPadre = buscarMasIzqDeSubarbol(raiz.getNodeDer());
-				NodeArbol auxRaizIzq = raiz.getNodeIzq();
-				if (auxPadre.getNodeIzq() == null) {
-					raiz = auxPadre;
-					raiz.setNodeDer(raiz.getNodeDer());
-					raiz.setNodeIzq(auxRaizIzq);
-				} else {
-					raiz = auxPadre.getNodeIzq();
-					auxPadre.setNodeIzq(/* auxPadre.getDerecho() */null);
-					raiz.setNodeDer(auxPadre);
-					raiz.setNodeIzq(auxRaizIzq);
-				}
-			}
-
-		}
-		return raiz;
-	}
-
-	public NodeArbol buscarMasIzqDeSubarbol(NodeArbol aux) {
-		if (aux.getNodeIzq() == null) {
-			return aux;
-		} else if ((aux.getNodeIzq().getNodeIzq() == null)) {
-			return aux;
-		} else {
-			return buscarMasIzqDeSubarbol(aux.getNodeIzq());
-		}
-
-	}
+//	public boolean delete(int o) {
+//		boolean delete = false;
+//		NodeArbol aux = root;
+//		if (root.getInfo() == o) {
+//			if ((root.getNodeDer() != null)
+//					&& ((root.getNodeDer().getNodeIzq() != null) || (root.getNodeDer().getNodeDer() != null))) {
+//				root = realizarCorrimientos(root, o);
+//				delete = true;
+//			} else if ((root.getNodeDer() != null)
+//					&& ((root.getNodeDer().getNodeIzq() == null) && (root.getNodeDer().getNodeDer() == null))) {
+//				root = aux.getNodeDer();
+//				root.setNodeIzq(aux.getNodeIzq());
+//			} else {
+//				root = root.getNodeIzq();
+//			}
+//
+//		} else {
+//			delete = delete(root, o);
+//		}
+//		return delete;
+//	}
+//
+//	public boolean delete(NodeArbol raiz, int o) {
+//		boolean delete = false;
+//		if (raiz != null) {
+//			if ((raiz.getInfo() > (int) o) && (raiz.getNodeIzq() != null)) {
+//				if (raiz.getNodeIzq().getInfo()==o) {
+//					raiz.setNodeIzq(realizarCorrimientos(raiz.getNodeIzq(), o));
+//					delete = true;
+//				} else {
+//					delete = delete(raiz.getNodeIzq(), o);
+//				}
+//			} else if (( raiz.getInfo() <  o) && (raiz.getNodeDer() != null)) {
+//				if (raiz.getNodeDer().getInfo()==o) {
+//					raiz.setNodeDer(realizarCorrimientos(raiz.getNodeDer(), o));
+//					delete = true;
+//				} else {
+//					delete = delete(raiz.getNodeDer(), o);
+//				}
+//			}
+//		}
+//		return delete;
+//	}
+//
+//	private NodeArbol realizarCorrimientos(NodeArbol raiz, Object o) {
+//		// TODO Auto-generated method stub
+//		NodeArbol auxRaiz = raiz;
+//		if ((raiz.getNodeDer() == null) && (raiz.getNodeIzq() == null)) {
+//			raiz = null; // tengo que borrarme de mi padre (ojo si soy la raiz)
+//		} else if ((raiz.getNodeDer() != null) && (raiz.getNodeIzq() == null)) {
+//			raiz = raiz.getNodeDer(); // padre.sethijo(raiz.getNodoDer)
+//		} else if ((raiz.getNodeDer() == null) && (raiz.getNodeIzq() != null)) {
+//			raiz = raiz.getNodeIzq(); // padre.sethijo(raiz.getNodoDer)
+//		} else {
+//			if (raiz.getNodeDer().getNodeIzq() == null) {
+//				raiz = raiz.getNodeDer();
+//				raiz.setNodeIzq(auxRaiz.getNodeIzq());
+//			} else {
+//				NodeArbol auxPadre = buscarMasIzqDeSubarbol(raiz.getNodeDer());
+//				NodeArbol auxRaizIzq = raiz.getNodeIzq();
+//				if (auxPadre.getNodeIzq() == null) {
+//					raiz = auxPadre;
+//					raiz.setNodeDer(raiz.getNodeDer());
+//					raiz.setNodeIzq(auxRaizIzq);
+//				} else {
+//					raiz = auxPadre.getNodeIzq();
+//					auxPadre.setNodeIzq(/* auxPadre.getDerecho() */null);
+//					raiz.setNodeDer(auxPadre);
+//					raiz.setNodeIzq(auxRaizIzq);
+//				}
+//			}
+//
+//		}
+//		return raiz;
+//	}
+//
+//	public NodeArbol buscarMasIzqDeSubarbol(NodeArbol aux) {
+//		if (aux.getNodeIzq() == null) {
+//			return aux;
+//		} else if ((aux.getNodeIzq().getNodeIzq() == null)) {
+//			return aux;
+//		} else {
+//			return buscarMasIzqDeSubarbol(aux.getNodeIzq());
+//		}
+//
+//	}
 
 	public int getHeight() {
 		int aux = 0;
